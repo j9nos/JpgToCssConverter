@@ -3,8 +3,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.imageio.ImageIO;
 
 public class JPG_TO_CSS_CONVERTER {
@@ -27,11 +25,11 @@ public class JPG_TO_CSS_CONVERTER {
 
     }
 
-    static void loadImage(String inputJPG) throws IOException {
+    private static void loadImage(String inputJPG) throws IOException {
         bufferedImage = ImageIO.read(new File(inputJPG));
     }
 
-    static void writeIntoHTML(String outputHTML) throws IOException {
+    private static void writeIntoHTML(String outputHTML) throws IOException {
         FileWriter file = new FileWriter(outputHTML);
         file.write("<style>\n\t#drawing {\n\t\tposition:absolute;\n\t\tbox-shadow:\n");
         int i=0;
