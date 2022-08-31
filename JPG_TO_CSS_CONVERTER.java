@@ -42,7 +42,7 @@ public class JPG_TO_CSS_CONVERTER {
                         i++;
             }
         }
-        file.write("\t}\n</style>\n<body>\n\t<div id='drawing'>\n</div>\n</body>");
+        file.write("\t}\n</style>\n<body>\n\t<div id='drawing'></div>\n</body>");
         file.close();
     }
 }
