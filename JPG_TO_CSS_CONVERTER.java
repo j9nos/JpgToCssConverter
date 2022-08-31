@@ -9,12 +9,15 @@ import javax.imageio.ImageIO;
 
 public class JPG_TO_CSS_CONVERTER {
 
-    static BufferedImage bufferedImage = null;
+    private static BufferedImage bufferedImage = null;
+
     public static void main(String[] args) {
+
         String inputJPG = "triangle.jpg";
         String outputHTML = "index.html";
+
         try {
-            bufferedImage = loadImage(inputJPG);
+            loadImage(inputJPG);
             List<Color> pixels = harvestPixels();
             writeIntoHTML(pixels, outputHTML);
         } catch (IOException ex) {
@@ -23,8 +26,8 @@ public class JPG_TO_CSS_CONVERTER {
 
     }
 
-    static BufferedImage loadImage(String path) throws IOException {
-        return ImageIO.read(new File(path));
+    static void loadImage(String inputJPG) throws IOException {
+        bufferedImage = ImageIO.read(new File(inputJPG));
     }
 
     static List<Color> harvestPixels() {
@@ -37,25 +40,24 @@ public class JPG_TO_CSS_CONVERTER {
         return pixels;
     }
 
-    static void writeIntoHTML(List<Color> pixels, String output) throws IOException {
-        FileWriter file = new FileWriter(output);
+    static void writeIntoHTML(List<Color> pixels, String outputHTML) throws IOException {
+        FileWriter file = new FileWriter(outputHTML);
         file.write("<style>\n\t#drawing {\n\t\tposition:absolute;\n\t\tbox-shadow:\n");
-        int currentPixelCounter = 0;
-        int x = 0;
-        int y = 0;
-        char comma = ',';
+        int currentPixelCounter,x,y;
+        currentPixelCounter=x=y=0;
+        char commaOrSemicolon = ',';
         for (Color pixel : pixels) {
             if (x == bufferedImage.getWidth()) {
                 x = 0;
                 y++;
             }
             if (currentPixelCounter + 1 == pixels.size()) {
-                comma = ';';
+                commaOrSemicolon = ';';
             }
             int r = pixel.getRed();
             int g = pixel.getGreen();
             int b = pixel.getBlue();
-            file.write(String.format("\t\t\t%dpx %dpx 1px 1px rgb(%d, %d, %d)%c\n", y, x, r, g, b, comma));
+            file.write(String.format("\t\t\t%dpx %dpx 1px 1px rgb(%d, %d, %d)%c\n", y, x, r, g, b, commaOrSemicolon));
             x++;
             currentPixelCounter++;
         }
