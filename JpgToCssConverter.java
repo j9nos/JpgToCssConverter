@@ -28,7 +28,7 @@ public final class JpgToCssConverter {
     }
 
     private static String extensionSwitch(final String url) {
-        return url.replaceAll(ACCEPTED_FILE_FORMAT, OUTPUT_FILE_FORMAT);
+        return url.toLowerCases().replaceAll(ACCEPTED_FILE_FORMAT, OUTPUT_FILE_FORMAT);
     }
 
     private static BufferedImage createBufferedImage(final String url) throws IOException {
